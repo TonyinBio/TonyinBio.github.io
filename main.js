@@ -3,16 +3,14 @@ const highlightNodes = new Set();
 const highlightLinks = new Set();
 let hoverNode = null;
 
-// function to scroll into view 
+// function to scroll sidebar into view 
 function scrollTo (id) {
   let element = document.getElementById(id);
   element.scrollIntoView({behavior: "smooth"});
-  element.classList.add('highlight')
+  element.classList.add('highlight');
   setTimeout(function() {element.classList.remove('highlight')
-}, 1000)
+  }, 1000);
 };
-
-// generate json from https://bl.ocks.org/cjrd/6863459
 
 const Graph = ForceGraph()
   .width(innerWidth- document.getElementById('sidebar').offsetWidth)
@@ -107,7 +105,10 @@ const Graph = ForceGraph()
   .d3AlphaDecay(0.02)
   .d3VelocityDecay(0.3);
 
-// Load JSON and Call graph
+const barLi = document.querySelectorAll(".barli");
+//////////////////////////////
+// Load JSON and Call graph //
+//////////////////////////////
 fetch('dags/course2.json')
 .then(res => res.json())
 .then(data => {
@@ -142,7 +143,6 @@ fetch('dags/course2.json')
   .graphData(data);
 
   // onDivClick, center at node
-  const barLi = document.querySelectorAll(".barli");
 
   function graphFocus (nodetitle) {
     let node = data.nodes.find(node => {
@@ -178,6 +178,14 @@ fetch('dags/course2.json')
       graphHighlight(this.id);
     });
   });
+  
+  const bar = document.getElementById('sidebar')
+    bar.addEventListener('mouseleave', function() {
+      highlightNodes.clear();
+      highlightLinks.clear();
+      hoverNode = null;
+    });
+
 
 
 });
