@@ -95,7 +95,9 @@ const Graph = ForceGraph()
       )
     )
     .onNodeClick(node => {
-      scrollTo(node.title)
+      scrollTo(node.title);
+      Graph.centerAt(node.x, node.y, 1000);
+      Graph.zoom(1.5, 1000);
     })
     .linkDirectionalParticles(2)
     .linkDirectionalParticleWidth(link => highlightLinks.has(link) ? 10 : 3)
