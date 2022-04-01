@@ -15,96 +15,97 @@ function scrollTo (id) {
 // generate json from https://bl.ocks.org/cjrd/6863459
 
 const Graph = ForceGraph()
-    .backgroundColor('#42AE90')
-    .linkColor(() => 'rgba(255,255,255,0.2)')
-    .nodeId('id')
-    .nodeVal('val')
-    .nodeLabel('title')
-    .nodeAutoColorBy('group')
-  
-    .linkSource('source')
-    .linkTarget('target')
-    .linkColor('#FAFCFC')
-    .dagMode('lr')
-    .dagLevelDistance(100)
-    .onNodeHover(node => {
-      highlightNodes.clear();
-      highlightLinks.clear();
-      if (node && node.neighbors) {
-        highlightNodes.add(node);
-        node.neighbors.forEach(neighbor => highlightNodes.add(neighbor));
-        node.links.forEach(link => highlightLinks.add(link));
-      }
+  .width(innerWidth- document.getElementById('sidebar').offsetWidth)
+  .backgroundColor('#42AE90')
+  .linkColor(() => 'rgba(255,255,255,0.2)')
+  .nodeId('id')
+  .nodeVal('val')
+  .nodeLabel('title')
+  .nodeAutoColorBy('group')
 
-      hoverNode = node || null;
-    })
-    .onLinkHover(link => {
-      highlightNodes.clear();
-      highlightLinks.clear();
+  .linkSource('source')
+  .linkTarget('target')
+  .linkColor('#FAFCFC')
+  .dagMode('lr')
+  .dagLevelDistance(250)
+  .onNodeHover(node => {
+    highlightNodes.clear();
+    highlightLinks.clear();
+    if (node && node.neighbors) {
+      highlightNodes.add(node);
+      node.neighbors.forEach(neighbor => highlightNodes.add(neighbor));
+      node.links.forEach(link => highlightLinks.add(link));
+    }
 
-      if (link) {
-        highlightLinks.add(link);
-        highlightNodes.add(link.source);
-        highlightNodes.add(link.target);
-      }
-    })
-    // .autoPauseRedraw(false)
-    .nodeCanvasObject((node, ctx) => {
-      const label = node.title;
-      const fontSize = 15;
-      ctx.font = `${fontSize}px Sans-Serif`;
-      const textWidth = ctx.measureText(label).width;
-      const bckgDimensions = [textWidth, fontSize].map(n => n + fontSize * 0.2); // some padding
+    hoverNode = node || null;
+  })
+  .onLinkHover(link => {
+    highlightNodes.clear();
+    highlightLinks.clear();
 
-      if (node === hoverNode) {
-        ctx.fillStyle = '#F6AE2D';
-        ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);
-      } else if (highlightNodes.has(node)) {
-        ctx.fillStyle = '#1B98E0';
-        ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);
-      }else {
-        ctx.fillStyle = '#565554';
-        ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);
-      }
+    if (link) {
+      highlightLinks.add(link);
+      highlightNodes.add(link.source);
+      highlightNodes.add(link.target);
+    }
+  })
+  // .autoPauseRedraw(false)
+  .nodeCanvasObject((node, ctx) => {
+    const label = node.title;
+    const fontSize = 15;
+    ctx.font = `${fontSize}px Sans-Serif`;
+    const textWidth = ctx.measureText(label).width;
+    const bckgDimensions = [textWidth, fontSize].map(n => n + fontSize * 0.2); // some padding
 
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillStyle = '#FAFCFC';
-      ctx.fillText(label, node.x, node.y);
+    if (node === hoverNode) {
+      ctx.fillStyle = '#F6AE2D';
+      ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);
+    } else if (highlightNodes.has(node)) {
+      ctx.fillStyle = '#1B98E0';
+      ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);
+    }else {
+      ctx.fillStyle = '#565554';
+      ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);
+    }
 
-      node.__bckgDimensions = bckgDimensions; // to re-use in nodePointerAreaPaint
-    })
-    .onNodeDragEnd(node => {
-      node.fx = node.x;
-      node.fy = node.y;
-    })
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#FAFCFC';
+    ctx.fillText(label, node.x, node.y);
 
-    .nodePointerAreaPaint((node, color, ctx) => {
-      ctx.fillStyle = color;
-      const bckgDimensions = node.__bckgDimensions;
-      bckgDimensions && ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);
-    })
-    .linkCurvature(d =>
-      0.07 * // max curvature
-      // curve outwards from source, using gradual straightening within a margin of a few px
-      (['td', 'bu'].includes(Graph.dagMode())
-        ? Math.max(-1, Math.min(1, (d.source.x - d.target.x) / 25)) :
-        ['lr', 'rl'].includes(Graph.dagMode())
-          ? Math.max(-1, Math.min(1, (d.target.y - d.source.y) / 25))
-          : ['radialout', 'radialin'].includes(Graph.dagMode()) ? 0 : 1
-      )
+    node.__bckgDimensions = bckgDimensions; // to re-use in nodePointerAreaPaint
+  })
+  .onNodeDragEnd(node => {
+    node.fx = node.x;
+    node.fy = node.y;
+  })
+
+  .nodePointerAreaPaint((node, color, ctx) => {
+    ctx.fillStyle = color;
+    const bckgDimensions = node.__bckgDimensions;
+    bckgDimensions && ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);
+  })
+  .linkCurvature(d =>
+    0.07 * // max curvature
+    // curve outwards from source, using gradual straightening within a margin of a few px
+    (['td', 'bu'].includes(Graph.dagMode())
+      ? Math.max(-1, Math.min(1, (d.source.x - d.target.x) / 25)) :
+      ['lr', 'rl'].includes(Graph.dagMode())
+        ? Math.max(-1, Math.min(1, (d.target.y - d.source.y) / 25))
+        : ['radialout', 'radialin'].includes(Graph.dagMode()) ? 0 : 1
     )
-    .onNodeClick(node => {
-      scrollTo(node.title);
-      Graph.centerAt(node.x, node.y, 1000);
-      Graph.zoom(1.5, 1000);
-    })
-    .linkDirectionalParticles(2)
-    .linkDirectionalParticleWidth(link => highlightLinks.has(link) ? 10 : 3)
-    .linkWidth(link => highlightLinks.has(link) ? 5 : 1)
-    .d3Force('collide', d3.forceCollide(50))
-    .d3AlphaDecay(0.02)
-    .d3VelocityDecay(0.3);
+  )
+  .onNodeClick(node => {
+    scrollTo(node.title);
+    Graph.centerAt(node.x, node.y, 1000);
+    Graph.zoom(1.5, 1000);
+  })
+  .linkDirectionalParticles(2)
+  .linkDirectionalParticleWidth(link => highlightLinks.has(link) ? 10 : 3)
+  .linkWidth(link => highlightLinks.has(link) ? 5 : 1)
+  .d3Force('collide', d3.forceCollide(50))
+  .d3AlphaDecay(0.02)
+  .d3VelocityDecay(0.3);
 
 // Load JSON and Call graph
 fetch('dags/course2.json')
