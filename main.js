@@ -74,7 +74,10 @@ const Graph = ForceGraph()
 
       node.__bckgDimensions = bckgDimensions; // to re-use in nodePointerAreaPaint
     })
-
+    .onNodeDragEnd(node => {
+      node.fx = node.x;
+      node.fy = node.y;
+    })
 
     .nodePointerAreaPaint((node, color, ctx) => {
       ctx.fillStyle = color;
