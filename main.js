@@ -2,6 +2,7 @@
 // TODO: Change link colours?
 // TODO: Add borders?
 // TODO: Fix D3. Nodes repel away infinetly
+// TODO: Autocurve
 
 // Created from https://github.com/vasturiano/force-graph
 const highlightNodes = new Set();
@@ -128,8 +129,8 @@ const Graph = ForceGraph()
   .linkDirectionalParticleWidth((link) => (highlightLinks.has(link) ? 10 : 3))
   .linkWidth((link) => (highlightLinks.has(link) ? 5 : 1))
   .d3Force("collide", d3.forceCollide(50))
-  .d3AlphaDecay(0.02)
-  .d3VelocityDecay(0.3);
+  // .d3AlphaDecay(0.02)
+  // .d3VelocityDecay(0.3);
 
 const barLi = document.querySelectorAll(".barli");
 //////////////////////////////
