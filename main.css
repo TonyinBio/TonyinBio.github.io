@@ -12,6 +12,11 @@
     font-family: "arial"
   }
 
+#citation {
+    padding-left: 20px;
+    padding-top:10px;
+}
+
 .barli {
     background-color: #00000000;
     transition: 500ms ease;
@@ -26,3 +31,4 @@
     transition: 500ms ease;
     background-color: #F6AE2D;
 }
+
