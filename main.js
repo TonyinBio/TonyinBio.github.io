@@ -1,3 +1,8 @@
+// TODO: Touch up css
+// TODO: Change link colours?
+// TODO: Add borders?
+// TODO: Fix D3. Nodes repel away infinetly
+
 // Created from https://github.com/vasturiano/force-graph
 const highlightNodes = new Set();
 const highlightLinks = new Set();
@@ -86,10 +91,10 @@ const Graph = ForceGraph()
 
     node.__bckgDimensions = bckgDimensions; // to re-use in nodePointerAreaPaint
   })
-  // .onNodeDragEnd(node => {
-  //   node.fx = node.x;
-  //   node.fy = node.y;
-  // })
+  .onNodeDragEnd((node) => {
+    node.fx = node.x;
+    node.fy = node.y;
+  })
 
   .nodePointerAreaPaint((node, color, ctx) => {
     ctx.fillStyle = color;
@@ -101,6 +106,7 @@ const Graph = ForceGraph()
         ...bckgDimensions
       );
   })
+  .linkDirectionalParticleSpeed(0.0025)
   .linkCurvature(
     (d) =>
       0.07 * // max curvature
