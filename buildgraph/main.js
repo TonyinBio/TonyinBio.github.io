@@ -94,14 +94,27 @@ const Graph = ForceGraph()
   })
   .nodeCanvasObject((node, ctx) => {
     const label = node.title;
-    const fontSize = 15;
+    const fontSize = 10;
     ctx.font = `${fontSize}px Sans-Serif`;
     const textWidth = ctx.measureText(label).width;
+    const bckgDimensions = [textWidth, fontSize].map((n) => n + fontSize * 0.2); // some padding
 
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillStyle = "#00000";
     ctx.fillText(label, node.x, node.y);
+
+    node.__bckgDimensions = bckgDimensions; // to re-use in nodePointerAreaPaint
+  })
+  .nodePointerAreaPaint((node, color, ctx) => {
+    ctx.fillStyle = color;
+    const bckgDimensions = node.__bckgDimensions;
+    bckgDimensions &&
+      ctx.fillRect(
+        node.x - bckgDimensions[0] / 2,
+        node.y - bckgDimensions[1] / 2,
+        ...bckgDimensions
+      );
   })
   .d3Force("collide", d3.forceCollide(50));
 updateGraphData();
