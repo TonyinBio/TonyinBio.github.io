@@ -6,41 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="main.css" />
     <title>Tony Tony Tony</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-TEWQWZJC8X"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-TEWQWZJC8X");
+    </script>
   </head>
+
   <body>
     <div id="menu">
-      <a href="/"> Home </a>
+      <a class="active" href="/"> Home </a>
 
-      <a class="active" href="/projects/"> Projects </a>
+      <a href="/projects/"> Projects </a>
 
       <a href="/about/"> About </a>
     </div>
+    <h1>Welcome User</h1>
 
-    <h1 id="title">Projects</h1>
-
-    <div id="project-menu">
-      <button onclick="accordion('courseplanner')" class="accordion">
-        Course Planner
-      </button>
-      <div id="courseplanner" class="hide">
-        <div class="project-item">
-          Course Graph<a href="courseplanner/">
-            <span class="link"></span>
-          </a>
-        </div>
-        <div class="project-item">
-          Build a Graph<a href="buildgraph/">
-            <span class="link"></span>
-          </a>
-        </div>
-        <div class="project-item">
-          Edit Graph Descriptions<a href="descriptionbuilder/">
-            <span class="link"></span>
-          </a>
-        </div>
-      </div>
+    <div id="background">
+      <img />
     </div>
-
-    <script src="main.js"></script>
+    <div class="panel"></div>
   </body>
 </html>
