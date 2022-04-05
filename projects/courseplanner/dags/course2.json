@@ -25,7 +25,10 @@
       "title": "STAT 151",
       "desc": "Stats 151 explains the base knowledge of statistics. There’s typically some group work which can be a bit of a burden (especially if your group members don’t contribute.) Most professors give lots of practice questions, and it is good to see in which situations you would use a particular method of statistical analysis. Although it’s not the most intriguing class, the information you learn is very useful as you will need to apply your knowledge to other courses (especially Biology).\n\n\n\nMake sure you complete all the practice questions, as the exams are very similar in style and this will help you prepare well!"
     },
-    { "id": 7, "title": "MATH 125" },
+    {
+      "id": 7,
+      "title": "MATH 125"
+    },
     {
       "id": 8,
       "title": "MATH 134",
@@ -86,15 +89,27 @@
       "title": "IMIN 200",
       "desc": "This is the first imin course you will be able to take, and it is an excellent introduction to immunology and provides the background information that will help you in later imin and MMI courses. The class has three main parts, innate and adaptive immunity, bacteriology and virology, each taught by a different professor and each an excellent opportunity to learn about the wide field that is immunology. The class is heavily focused on memorization with some application questions."
     },
-    { "id": 21, "title": "NEURO 210" },
-    { "id": 22, "title": "PSYCH 275" },
+    {
+      "id": 21,
+      "title": "NEURO 210"
+    },
+    {
+      "id": 22,
+      "title": "PSYCH 275"
+    },
     {
       "id": 23,
       "title": "PSYCO 104",
       "desc": "This is a general introductory course, it pairs with psych 105. It is mostly memorization of concepts with very little application. Exams are multiple choice. This class is mostly taken as an easy science option and a GPA booster. The class does require research participation, that you must schedule a head of time, that counts for a portion of your grade."
     },
-    { "id": 24, "title": "PHYSL 212" },
-    { "id": 25, "title": "PHYSL 214" },
+    {
+      "id": 24,
+      "title": "PHYSL 212"
+    },
+    {
+      "id": 25,
+      "title": "PHYSL 214"
+    },
     {
       "id": 26,
       "title": "IMIN 324",
@@ -139,54 +154,248 @@
       "id": 34,
       "title": "MICRB 316",
       "desc": "This course focuses on prokaryotic gene regulation, you’ll learn a bunch about cool regulatory systems in bacteria and the like, typically this course has a midterm, final, and a paper on a topic of your choice. \n\n\n\nThis course is a continuation of Genet 270 with even more in depth concepts. It relies heavily on information from 270, so it is critical that you have it as a prerequisite. You learn factors that affect prokaryotic gene expression at the levels of replication, transcription, post-transcription, post-translational and post-translational control in great detail. I found this to be a very interesting course, however it is heavy memorization with very specific exam questions.\n\n\n\nI found MICRB 316 to be a handy compliment to MMI 351, as it goes into detail on some topics that 351 only scratched the surface of. It came in handy on some of the midterms!\n\n"
+    },
+    {
+      "id": 2,
+      "title": "CMPUT 174"
+    },
+    {
+      "id": 36,
+      "title": "CMPUT 301"
+    },
+    {
+      "id": 37,
+      "title": "CMPUT 201"
+    },
+    {
+      "id": 38,
+      "title": "CMPUT 175"
+    },
+    {
+      "id": 39,
+      "title": "ZOOL 241"
+    },
+    {
+      "id": 41,
+      "title": "ZOOL 242"
+    },
+    {
+      "id": 42,
+      "title": "PHYSL 210"
+    },
+    {
+      "id": 43,
+      "title": "PHYS 124"
     }
   ],
   "links": [
-    { "source": 3, "target": 9 },
-    { "source": 4, "target": 5 },
-    { "source": 1, "target": 10 },
-    { "source": 1, "target": 12 },
-    { "source": 1, "target": 13 },
-    { "source": 10, "target": 11 },
-    { "source": 1, "target": 14 },
-    { "source": 4, "target": 12 },
-    { "source": 15, "target": 13 },
-    { "source": 4, "target": 15 },
-    { "source": 5, "target": 17 },
-    { "source": 15, "target": 14 },
-    { "source": 15, "target": 18 },
-    { "source": 15, "target": 19 },
-    { "source": 18, "target": 20 },
-    { "source": 14, "target": 20 },
-    { "source": 19, "target": 17 },
-    { "source": 18, "target": 17 },
-    { "source": 22, "target": 21 },
-    { "source": 23, "target": 22 },
-    { "source": 1, "target": 24 },
-    { "source": 4, "target": 24 },
-    { "source": 5, "target": 24 },
-    { "source": 15, "target": 24 },
-    { "source": 24, "target": 25 },
-    { "source": 10, "target": 26 },
-    { "source": 20, "target": 26 },
-    { "source": 18, "target": 26 },
-    { "source": 18, "target": 27 },
-    { "source": 10, "target": 27 },
-    { "source": 20, "target": 27 },
-    { "source": 18, "target": 28 },
-    { "source": 27, "target": 28 },
-    { "source": 14, "target": 29 },
-    { "source": 20, "target": 29 },
-    { "source": 20, "target": 30 },
-    { "source": 17, "target": 31 },
-    { "source": 18, "target": 32 },
-    { "source": 5, "target": 32 },
-    { "source": 19, "target": 32 },
-    { "source": 32, "target": 31 },
-    { "source": 11, "target": 33 },
-    { "source": 11, "target": 34 },
-    { "source": 14, "target": 34 },
-    { "source": 18, "target": 34 },
-    { "source": 19, "target": 24 }
+    {
+      "source": 3,
+      "target": 9
+    },
+    {
+      "source": 4,
+      "target": 5
+    },
+    {
+      "source": 1,
+      "target": 10
+    },
+    {
+      "source": 1,
+      "target": 12
+    },
+    {
+      "source": 1,
+      "target": 13
+    },
+    {
+      "source": 10,
+      "target": 11
+    },
+    {
+      "source": 1,
+      "target": 14
+    },
+    {
+      "source": 4,
+      "target": 12
+    },
+    {
+      "source": 15,
+      "target": 13
+    },
+    {
+      "source": 4,
+      "target": 15
+    },
+    {
+      "source": 5,
+      "target": 17
+    },
+    {
+      "source": 15,
+      "target": 14
+    },
+    {
+      "source": 15,
+      "target": 18
+    },
+    {
+      "source": 15,
+      "target": 19
+    },
+    {
+      "source": 18,
+      "target": 20
+    },
+    {
+      "source": 14,
+      "target": 20
+    },
+    {
+      "source": 19,
+      "target": 17
+    },
+    {
+      "source": 18,
+      "target": 17
+    },
+    {
+      "source": 22,
+      "target": 21
+    },
+    {
+      "source": 23,
+      "target": 22
+    },
+    {
+      "source": 1,
+      "target": 24
+    },
+    {
+      "source": 4,
+      "target": 24
+    },
+    {
+      "source": 5,
+      "target": 24
+    },
+    {
+      "source": 15,
+      "target": 24
+    },
+    {
+      "source": 24,
+      "target": 25
+    },
+    {
+      "source": 10,
+      "target": 26
+    },
+    {
+      "source": 20,
+      "target": 26
+    },
+    {
+      "source": 18,
+      "target": 26
+    },
+    {
+      "source": 18,
+      "target": 27
+    },
+    {
+      "source": 10,
+      "target": 27
+    },
+    {
+      "source": 20,
+      "target": 27
+    },
+    {
+      "source": 18,
+      "target": 28
+    },
+    {
+      "source": 27,
+      "target": 28
+    },
+    {
+      "source": 14,
+      "target": 29
+    },
+    {
+      "source": 20,
+      "target": 29
+    },
+    {
+      "source": 20,
+      "target": 30
+    },
+    {
+      "source": 17,
+      "target": 31
+    },
+    {
+      "source": 18,
+      "target": 32
+    },
+    {
+      "source": 5,
+      "target": 32
+    },
+    {
+      "source": 19,
+      "target": 32
+    },
+    {
+      "source": 32,
+      "target": 31
+    },
+    {
+      "source": 11,
+      "target": 34
+    },
+    {
+      "source": 14,
+      "target": 34
+    },
+    {
+      "source": 18,
+      "target": 34
+    },
+    {
+      "source": 19,
+      "target": 24
+    },
+    {
+      "source": 37,
+      "target": 36
+    },
+    {
+      "source": 38,
+      "target": 37
+    },
+    {
+      "source": 2,
+      "target": 38
+    },
+    {
+      "source": 1,
+      "target": 39
+    },
+    {
+      "source": 1,
+      "target": 41
+    },
+    {
+      "source": 1,
+      "target": 42
+    },
+    {
+      "source": 11,
+      "target": 33
+    }
   ]
 }

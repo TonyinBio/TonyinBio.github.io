@@ -129,19 +129,54 @@ const Graph = ForceGraph()
   .linkWidth((link) => (highlightLinks.has(link) ? 5 : 1))
   .d3Force("collide", d3.forceCollide(50));
 // .d3AlphaDecay(0.01)
-// .d3VelocityDecay(0.4);
+// .d3VelocityDecay(0.3);
 
-const barLi = document.querySelectorAll(".barli");
 //////////////////////////////
 // Load JSON and Call graph //
 //////////////////////////////
 fetch("dags/course2.json")
   .then((res) => res.json())
   .then((data) => {
-    const gData = {
-      nodes: data.nodes,
-      links: data.links,
-    };
+
+    data.nodes.forEach((node) => {
+      node.year = node.title.split(/(\s+)/)[2];
+      node.year = parseInt(node.year);
+    });
+
+    data.nodes.sort((a, b) => {
+      return a.year - b.year;
+    });
+
+    const bar = document.getElementById("sidebar");
+    bar.addEventListener("mouseleave", function () {
+      highlightNodes.clear();
+      highlightLinks.clear();
+      hoverNode = null;
+    });
+
+    data.nodes.forEach((node) => {
+      let div = document.createElement("div");
+      div.classList.add("barli");
+      div.id = node.title;
+
+      let h1 = document.createElement("h1");
+      let p = document.createElement("p");
+
+      h1.append(node.title);
+      p.append(node.desc);
+
+      div.append(h1, p);
+
+      bar.append(div);
+    });
+
+    const barLi = document.querySelectorAll(".barli");
+
+    barLi.forEach((element) => {
+      element.addEventListener("mouseenter", function () {
+        graphHighlight(this.id);
+      });
+    });
 
     // Locate neighbours
     data.links.forEach((link) => {
@@ -195,38 +230,4 @@ fetch("dags/course2.json")
       }
       hoverNode = node || null;
     }
-
-    barLi.forEach((element) => {
-      element.addEventListener("mouseenter", function () {
-        graphHighlight(this.id);
-      });
-    });
-
-    const bar = document.getElementById("sidebar");
-    bar.addEventListener("mouseleave", function () {
-      highlightNodes.clear();
-      highlightLinks.clear();
-      hoverNode = null;
-    });
-
-    barLi.forEach((div) => {
-      let p = div.querySelector("p");
-      let tempnode = data.nodes.find((node) => {
-        return node.title === div.id;
-      });
-      p.innerHTML = tempnode.desc;
-    });
   });
-
-// Add module that inserts text into courses
-
-// fetch("descriptions.json")
-// .then(res => res.json())
-// .then(descriptions => {
-//   barLi.forEach(div => {
-//     let p = div.querySelector('p');
-//     p.innerHTML = descriptions.find(course => {
-//       return course ===
-//     })
-//   });
-// })
