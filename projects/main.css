@@ -9,6 +9,15 @@ body {
   padding: 14px 16px;
 }
 
+#menu {
+  background-color: #59cd90;
+  z-index: 1;
+  padding: 14px 16px;
+  width: 100%;
+  position: fixed;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
+}
+
 #menu a {
   text-decoration: none;
   text-align: center;
@@ -31,6 +40,9 @@ body {
 }
 
 h1 {
+  position:relative;
+  margin-top: 0px;
+  padding-top: 100px;
   margin-left: 400px;
 }
 

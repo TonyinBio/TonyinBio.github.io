@@ -27,6 +27,8 @@ const Graph = ForceGraph()
   .nodeLabel("title")
   .nodeAutoColorBy("group")
 
+  .cooldownTime(3000)
+
   .linkSource("source")
   .linkTarget("target")
   .linkColor("#rgba(255,255,255,0.2")
@@ -59,7 +61,7 @@ const Graph = ForceGraph()
     const fontSize = 15;
     ctx.font = `${fontSize}px Sans-Serif`;
     const textWidth = ctx.measureText(label).width;
-    const bckgDimensions = [textWidth, fontSize].map((n) => n + fontSize * 0.2); // some padding
+    const bckgDimensions = [textWidth, fontSize].map((n) => n + fontSize * 0.4); // some padding
 
     if (node === hoverNode) {
       ctx.fillStyle = "#F6AE2D";
@@ -90,10 +92,6 @@ const Graph = ForceGraph()
     ctx.fillText(label, node.x, node.y);
 
     node.__bckgDimensions = bckgDimensions; // to re-use in nodePointerAreaPaint
-  })
-  .onNodeDragEnd((node) => {
-    node.fx = node.x;
-    node.fy = node.y;
   })
 
   .nodePointerAreaPaint((node, color, ctx) => {
@@ -137,7 +135,6 @@ const Graph = ForceGraph()
 fetch("dags/course2.json")
   .then((res) => res.json())
   .then((data) => {
-
     data.nodes.forEach((node) => {
       node.year = node.title.split(/(\s+)/)[2];
       node.year = parseInt(node.year);
@@ -199,6 +196,14 @@ fetch("dags/course2.json")
     });
 
     Graph(document.getElementById("graph")).graphData(data);
+
+    // freeze nodes
+    Graph.onEngineStop(() => {
+      data.nodes.forEach((node) => {
+        node.fx = node.x;
+        node.fy = node.y;
+      });
+    });
 
     // onDivClick, center at node
 
