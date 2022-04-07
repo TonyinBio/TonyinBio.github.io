@@ -129,6 +129,22 @@ const Graph = ForceGraph()
 // .d3AlphaDecay(0.01)
 // .d3VelocityDecay(0.3);
 
+// Search bar
+
+const searchInput = document.getElementById("search");
+let cards = [];
+
+searchInput.addEventListener("input", (e) => {
+  const value = e.target.value.toLowerCase();
+  cards.forEach((card) => {
+    card.desc = card.desc || "";
+    const isVisible =
+      card.title.toLowerCase().includes(value) ||
+      card.desc.toLowerCase().includes(value);
+    card.element.classList.toggle("hide", !isVisible);
+  });
+});
+
 //////////////////////////////
 // Load JSON and Call graph //
 //////////////////////////////
@@ -151,7 +167,7 @@ fetch("dags/course2.json")
       hoverNode = null;
     });
 
-    data.nodes.forEach((node) => {
+    cards = data.nodes.map((node) => {
       let div = document.createElement("div");
       div.classList.add("barli");
       div.id = node.title;
@@ -165,6 +181,8 @@ fetch("dags/course2.json")
       div.append(h1, p);
 
       bar.append(div);
+
+      return { title: node.title, desc: node.desc, element: div };
     });
 
     const barLi = document.querySelectorAll(".barli");
