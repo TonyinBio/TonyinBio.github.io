@@ -21,7 +21,7 @@ function scrollTo(id) {
 
 const Graph = ForceGraph()
   .width(innerWidth - document.getElementById("sidebar").offsetWidth)
-  .backgroundColor("#42AE90")
+  .backgroundColor("#e3dac9")
   .nodeId("id")
   .nodeVal("val")
   .nodeLabel("title")
