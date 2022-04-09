@@ -31,7 +31,7 @@ const Graph = ForceGraph()
 
   .linkSource("source")
   .linkTarget("target")
-  .linkAutoColorBy("type")
+  // .linkAutoColorBy("type")
 
   .dagMode("lr")
   .dagLevelDistance(250)
