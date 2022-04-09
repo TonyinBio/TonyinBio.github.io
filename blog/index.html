@@ -1,99 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tony Tony Tony</title>
-    <link rel="stylesheet" href="main.css" />
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-TEWQWZJC8X"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tony Tony Tony</title>
+  <link rel="stylesheet" href="main.css" />
 
-      gtag("config", "G-TEWQWZJC8X");
-    </script>
-  </head>
-  <body>
-    <div id="menu">
-      <a href="/"> Home </a>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TEWQWZJC8X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
-      <a href="/projects/"> Projects </a>
+    gtag("config", "G-TEWQWZJC8X");
+  </script>
+</head>
 
-      <a href="/about/"> About </a>
+<body>
+  <div id="menu">
+    <a href="/"> Home </a>
 
-      <a class="active" href="/blog/"> Blog </a>
+    <a href="/projects/"> Projects </a>
+
+    <a href="/about/"> About </a>
+
+    <a class="active" href="/blog/"> Blog </a>
+  </div>
+
+  <div id="body">
+    <h1>Blog</h1>
+    <div class="blog-panel">
+      <h2>First Project</h2>
+      <p>
+        I first got introduced to coding from my previous attempt to learn
+        python in the summer a while ago. I didn't stick with it though and
+        got quickly bored because there was no interactivity.
+      </p>
+      <p>
+        Later, I learned a bit of R in science research club. That was much
+        more interesting to me because I could create cool looking
+        visualizations with data and make stat tests-- which normally take a
+        long time to carry out-- in one line of code.
+      </p>
+      <p>
+        Now after joining IMINSA, I am learning how to use HTML, CSS, and JS
+        to create a visualization of the courses in my university. I started
+        by going to Khan Academy and learning HTML and some JS DOM
+        manipulation. After an hour or so I got bored so I just started
+        looking up how to create a tech tree and a drag and drop game because
+        I wanted my course visualization to be interactive so that you could
+        create a draft schedule inside the program. I soon realized that the
+        tech trees I was planning on making would not work out because they
+        were a type of graph called binary trees which do not allow for a
+        node, or course in this case, to have multiple parents, or
+        prerequisites.
+      </p>
+      <img
+        src="https://res.cloudinary.com/practicaldev/image/fetch/s--od-naD9n--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://miro.medium.com/max/975/1%2APWJiwTxRdQy8A_Y0hAv5Eg.png" />
+      <p>
+        It turns out that what I'm looking for is a directed acyclic graph or
+        DAG. These are graphs that can have multiple parents but the nodes are
+        connected in such a way that a cycle cannot form. And after some
+        searching, I found a nice library called
+        <a target="_blank" href="https://github.com/vasturiano/force-graph">Force-Graph</a>
+        by Vasutriano. The creator nicely made some examples which I stitched
+        together to make the graph you can find in the projects section.
+      </p>
+      <img style="max-width: 30%"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Tred-G.svg/800px-Tred-G.svg.png" />
+      <p>
+        Recently I actually started thinking about the title of the library
+        and realized that Force Graph refers to the method of drawing the
+        graph; it simulates the nodes as particles and uses repulsive
+        <em>forces</em>
+        between nodes and balances it with the attractive forces between
+        linked nodes to find the most optimal positioning of nodes. However,
+        there are many other methods of drawing graphs. There seems to be a
+        lot of theory behind many of them, but I am aware of a good method for
+        DAGs known as a layered graph or the Sugiyama method. Dagre is a JS
+        library that I believe draws graphs using this method, but this
+        library is a lot harder to use than the one made by Vasutriano and I
+        am still in the process of figuring out all the problems.
+      </p>
+      <p>
+        Next, I plan on improving the website by using sticky position to mimic the plants vs zombies credits.
+        I also want to recreate the pocket trains game.
+      </p>
     </div>
+  </div>
+</body>
 
-    <div id="body">
-      <h1>Blog</h1>
-      <div class="blog-panel">
-        <h2>First Project</h2>
-        <p>
-          I first got introduced to coding from my previous attempt to learn
-          python in the summer a while ago. I didn't stick with it though and
-          got quickly bored because there was no interactivity.
-        </p>
-        <p>
-          Later, I learned a bit of R in science research club. That was much
-          more interesting to me because I could create cool looking
-          visualizations with data and make stat tests-- which normally take a
-          long time to carry out-- in one line of code.
-        </p>
-        <p>
-          Now after joining IMINSA, I am learning how to use HTML, CSS, and JS
-          to create a visualization of the courses in my university. I started
-          by going to Khan Academy and learning HTML and some JS DOM
-          manipulation. After an hour or so I got bored so I just started
-          looking up how to create a tech tree and a drag and drop game because
-          I wanted my course visualization to be interactive so that you could
-          create a draft schedule inside the program. I soon realized that the
-          tech trees I was planning on making would not work out because they
-          were a type of graph called binary trees which do not allow for a
-          node, or course in this case, to have multiple parents, or
-          prerequisites.
-        </p>
-        <img
-          src="https://res.cloudinary.com/practicaldev/image/fetch/s--od-naD9n--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://miro.medium.com/max/975/1%2APWJiwTxRdQy8A_Y0hAv5Eg.png"
-        />
-        <p>
-          It turns out that what I'm looking for is a directed acyclic graph or
-          DAG. These are graphs that can have multiple parents but the nodes are
-          connected in such a way that a cycle cannot form. And after some
-          searching, I found a nice library called
-          <a target="_blank" href="https://github.com/vasturiano/force-graph"
-            >Force-Graph</a
-          >
-          by Vasutriano. The creator nicely made some examples which I stitched
-          together to make the graph you can find in the projects section.
-        </p>
-        <img
-          style="max-width: 30%"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Tred-G.svg/800px-Tred-G.svg.png"
-        />
-        <p>
-          Recently I actually started thinking about the title of the library
-          and realized that Force Graph refers to the method of drawing the
-          graph; it simulates the nodes as particles and uses repulsive
-          <em>forces</em>
-          between nodes and balances it with the attractive forces between
-          linked nodes to find the most optimal positioning of nodes. However,
-          there are many other methods of drawing graphs. There seems to be a
-          lot of theory behind many of them, but I am aware of a good method for
-          DAGs known as a layered graph or the Sugiyama method. Dagre is a JS
-          library that I believe draws graphs using this method, but this
-          library is a lot harder to use than the one made by Vasutriano and I
-          am still in the process of figuring out all the problems.
-        </p>
-      </div>
-    </div>
-  </body>
 </html>

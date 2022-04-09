@@ -31,7 +31,8 @@ const Graph = ForceGraph()
 
   .linkSource("source")
   .linkTarget("target")
-  .linkColor("#rgba(255,255,255,0.2")
+  .linkAutoColorBy("type")
+
   .dagMode("lr")
   .dagLevelDistance(250)
   .onNodeHover((node) => {
@@ -152,7 +153,7 @@ fetch("dags/course2.json")
   .then((res) => res.json())
   .then((data) => {
     data.nodes.forEach((node) => {
-      node.year = node.title.split(/(\s+)/)[2];
+      node.year = node.title.match(/\d{3}/)[0];
       node.year = parseInt(node.year);
     });
 
