@@ -71,6 +71,12 @@ const Graph = ForceGraph()
         node.y - bckgDimensions[1] / 2,
         ...bckgDimensions
       );
+
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = "#000000";
+      ctx.fillText(label, node.x, node.y);
+
     } else if (highlightNodes.has(node)) {
       ctx.fillStyle = "#1B98E0";
       ctx.fillRect(
@@ -78,6 +84,12 @@ const Graph = ForceGraph()
         node.y - bckgDimensions[1] / 2,
         ...bckgDimensions
       );
+
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = "#000000";
+      ctx.fillText(label, node.x, node.y);
+
     } else {
       ctx.fillStyle = node.color;
       ctx.fillRect(
@@ -85,12 +97,11 @@ const Graph = ForceGraph()
         node.y - bckgDimensions[1] / 2,
         ...bckgDimensions
       );
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = "#FAFCFC";
+      ctx.fillText(label, node.x, node.y);
     }
-
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillStyle = "#FAFCFC";
-    ctx.fillText(label, node.x, node.y);
 
     node.__bckgDimensions = bckgDimensions; // to re-use in nodePointerAreaPaint
   })
@@ -203,7 +214,6 @@ fetch("dags/UPcourse2.json")
       const b = data.nodes.find((node) => {
         return node.id === link.target;
       });
-
 
       !a.neighbors && (a.neighbors = []);
       !b.neighbors && (b.neighbors = []);
