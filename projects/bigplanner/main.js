@@ -199,9 +199,11 @@ fetch("dags/UPcourse2.json")
       const a = data.nodes.find((node) => {
         return node.id === link.source;
       });
+
       const b = data.nodes.find((node) => {
         return node.id === link.target;
       });
+
 
       !a.neighbors && (a.neighbors = []);
       !b.neighbors && (b.neighbors = []);
