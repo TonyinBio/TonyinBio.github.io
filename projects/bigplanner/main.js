@@ -25,7 +25,7 @@ const Graph = ForceGraph()
   .nodeId("id")
   .nodeVal("val")
   .nodeLabel("title")
-  .nodeAutoColorBy("group")
+  // .nodeAutoColorBy("color")
 
   // .cooldownTime(3000)
 
@@ -79,7 +79,7 @@ const Graph = ForceGraph()
         ...bckgDimensions
       );
     } else {
-      ctx.fillStyle = "#565554";
+      ctx.fillStyle = node.color;
       ctx.fillRect(
         node.x - bckgDimensions[0] / 2,
         node.y - bckgDimensions[1] / 2,
