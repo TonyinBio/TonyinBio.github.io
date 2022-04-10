@@ -21,7 +21,7 @@ function scrollTo(id) {
 
 const Graph = ForceGraph()
   .width(innerWidth - document.getElementById("sidebar").offsetWidth)
-  .backgroundColor("#e3dac9")
+  .backgroundColor("#101020")
   .nodeId("id")
   .nodeVal("val")
   .nodeLabel("title")
@@ -59,7 +59,7 @@ const Graph = ForceGraph()
   .autoPauseRedraw(false)
   .nodeCanvasObject((node, ctx) => {
     const label = node.title;
-    const fontSize = 15;
+    const fontSize = 10;
     ctx.font = `${fontSize}px Sans-Serif`;
     const textWidth = ctx.measureText(label).width;
     const bckgDimensions = [textWidth, fontSize].map((n) => n + fontSize * 0.4); // some padding
@@ -76,7 +76,6 @@ const Graph = ForceGraph()
       ctx.textBaseline = "middle";
       ctx.fillStyle = "#000000";
       ctx.fillText(label, node.x, node.y);
-
     } else if (highlightNodes.has(node)) {
       ctx.fillStyle = "#1B98E0";
       ctx.fillRect(
@@ -89,7 +88,6 @@ const Graph = ForceGraph()
       ctx.textBaseline = "middle";
       ctx.fillStyle = "#000000";
       ctx.fillText(label, node.x, node.y);
-
     } else {
       ctx.fillStyle = node.color;
       ctx.fillRect(
@@ -137,7 +135,18 @@ const Graph = ForceGraph()
   .linkDirectionalParticles(2)
   .linkDirectionalParticleWidth((link) => (highlightLinks.has(link) ? 10 : 3))
   .linkWidth((link) => (highlightLinks.has(link) ? 5 : 1))
-  .d3Force("collide", d3.forceCollide(100));
+  .d3Force("charge", d3.forceManyBody()
+    .strength(-100)
+    .distanceMin(10)
+    .distanceMax(3000)
+    )
+  .d3Force(
+    "link", d3.forceLink()
+      .iterations(1)
+  )
+  .d3Force(
+    "collide", d3.forceCollide(30)
+  );
 // .d3AlphaDecay(0.01)
 // .d3VelocityDecay(0.3);
 
@@ -229,12 +238,12 @@ fetch("dags/UPcourse2.json")
     Graph(document.getElementById("graph")).graphData(data);
 
     // freeze nodes
-    Graph.onEngineStop(() => {
-      data.nodes.forEach((node) => {
-        node.fx = node.x;
-        node.fy = node.y;
-      });
-    });
+    // Graph.onEngineStop(() => {
+    //   data.nodes.forEach((node) => {
+    //     node.fx = node.x;
+    //     node.fy = node.y;
+    //   });
+    // });
 
     // onDivClick, center at node
 
