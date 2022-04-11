@@ -308,7 +308,7 @@ fetch("dags/UPcourse2.json")
       gravity.classList.toggle("knobDeactivated")
 
       if (gravityOn === true) {
-        Graph.d3Force("charge", d3.forceManyBody().strength(100))
+        Graph.d3Force("charge", d3.forceManyBody().strength(1000))
         Graph.d3ReheatSimulation()
       } else {
         Graph.d3Force(
