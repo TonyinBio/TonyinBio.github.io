@@ -230,7 +230,6 @@ fetch("dags/UPcourse2.json")
       } else {
         subjTag.innerHTML = "<<br><<br><";
       }
-      Graph.width(innerWidth);
     });
 
 
