@@ -135,36 +135,14 @@ const Graph = ForceGraph()
   .linkDirectionalParticles(2)
   .linkDirectionalParticleWidth((link) => (highlightLinks.has(link) ? 10 : 3))
   .linkWidth((link) => (highlightLinks.has(link) ? 5 : 1))
-  .d3Force("charge", d3.forceManyBody()
-    .strength(-100)
-    .distanceMin(10)
-    .distanceMax(3000)
-    )
   .d3Force(
-    "link", d3.forceLink()
-      .iterations(1)
+    "charge",
+    d3.forceManyBody().strength(-100).distanceMin(10).distanceMax(3000)
   )
-  .d3Force(
-    "collide", d3.forceCollide(30)
-  );
+  .d3Force("link", d3.forceLink().iterations(1))
+  .d3Force("collide", d3.forceCollide(30));
 // .d3AlphaDecay(0.01)
 // .d3VelocityDecay(0.3);
-
-// Search bar
-
-const searchInput = document.getElementById("search");
-let cards = [];
-
-searchInput.addEventListener("input", (e) => {
-  const value = e.target.value.toLowerCase();
-  cards.forEach((card) => {
-    card.desc = card.desc || "";
-    const isVisible =
-      card.title.toLowerCase().includes(value) ||
-      card.desc.toLowerCase().includes(value);
-    card.element.classList.toggle("hide", !isVisible);
-  });
-});
 
 //////////////////////////////
 // Load JSON and Call graph //
@@ -181,6 +159,7 @@ fetch("dags/UPcourse2.json")
       return a.year - b.year;
     });
 
+    // Highlight interactivity
     const bar = document.getElementById("sidebar");
     bar.addEventListener("mouseleave", function () {
       highlightNodes.clear();
@@ -188,7 +167,28 @@ fetch("dags/UPcourse2.json")
       hoverNode = null;
     });
 
-    cards = data.nodes.map((node) => {
+    // Course collapse interactivity
+    tagCollapsed = false;
+    const tag = document.getElementById("tag");
+    tag.addEventListener("click", () => {
+      bar.classList.toggle("right");
+      tag.classList.toggle("tagCollapse");
+      tagCollapsed = !tagCollapsed;
+      if (tagCollapsed === true) {
+        tag.innerHTML = "<<br><<br><";
+        Graph.width(innerWidth);
+      } else {
+        tag.innerHTML = "><br>><br>>";
+        setTimeout(() => {
+          Graph.width(
+            innerWidth - document.getElementById("sidebar").offsetWidth
+          );
+        }, 500);
+      }
+    });
+
+    // Add cards
+    let cards = data.nodes.map((node) => {
       let div = document.createElement("div");
       div.classList.add("barli");
       div.id = node.title;
@@ -206,13 +206,73 @@ fetch("dags/UPcourse2.json")
       return { title: node.title, desc: node.desc, element: div };
     });
 
-    const barLi = document.querySelectorAll(".barli");
+    const subjBar = document.getElementById("subjBar");
+    // Add subjects
+    let subjCards = data.subjects.map((subject) => {
+      let h2 = document.createElement("h2");
+      h2.classList.add("subjBarLi");
+      h2.id = subject;
+      h2.append(subject);
 
-    barLi.forEach((element) => {
-      element.addEventListener("mouseenter", function () {
-        graphHighlight(this.id);
+      subjBar.append(h2);
+      return { subject: subject, element: h2, hide: false };
+    });
+
+    // Collapse interactivity
+    subjTagCollapsed = false;
+    const subjTag = document.getElementById("subjTag");
+    subjTag.addEventListener("click", () => {
+      subjBar.classList.toggle("left");
+      subjTag.classList.toggle("tagCollapse");
+      subjTagCollapsed = !subjTagCollapsed;
+      if (subjTagCollapsed === true) {
+        subjTag.innerHTML = "><br>><br>>";
+      } else {
+        subjTag.innerHTML = "<<br><<br><";
+      }
+      Graph.width(innerWidth);
+    });
+
+
+    // Hide subjects
+    let visibleSubjects = data.subjects;
+
+    subjCards.forEach((card) => {
+      card.element.addEventListener("click", () => {
+        toggleHide(card);
       });
     });
+
+    function toggleHide(card) {
+      card.element.classList.toggle("deactivated")
+
+      card.hide = !card.hide;
+
+      if (card.hide === true) {
+        visibleSubjects = visibleSubjects.filter((subject) => {
+          return subject != card.subject;
+        });
+      } else {
+        visibleSubjects.push(card.subject)
+      }
+
+      let filteredData = {
+        nodes: data.nodes.filter((node) => {
+          let nodeSubject = node.title.split(/ \d{3}/)[0];
+          return visibleSubjects.includes(nodeSubject);
+        }),
+
+        links: data.links.filter(link => {
+
+          let sourceSubject = link.source.title.split(/ \d{3}/)[0];
+          let targetSubject = link.target.title.split(/ \d{3}/)[0];
+
+          return visibleSubjects.includes(sourceSubject) && visibleSubjects.includes(targetSubject)
+        }),
+      };
+
+      Graph.graphData(filteredData);
+    }
 
     // Locate neighbours
     data.links.forEach((link) => {
@@ -237,6 +297,52 @@ fetch("dags/UPcourse2.json")
 
     Graph(document.getElementById("graph")).graphData(data);
 
+    // Gravity button
+
+    const gravity = document.getElementById("gravity")
+    gravity.addEventListener("click", toggleGravity)
+
+    let gravityOn = false
+    function toggleGravity() {
+      gravityOn = !gravityOn
+      gravity.classList.toggle("knobDeactivated")
+
+      if (gravityOn === true) {
+        Graph.d3Force("charge", d3.forceManyBody().strength(100))
+        Graph.d3ReheatSimulation()
+      } else {
+        Graph.d3Force(
+          "charge",
+          d3.forceManyBody().strength(-100).distanceMin(10).distanceMax(3000)
+        )
+        Graph.d3ReheatSimulation()
+      }
+    }
+
+    // Freeze button
+
+    const freeze = document.getElementById("freeze")
+    freeze.addEventListener("click", toggleFreeze)
+    
+    let freezeOn = false
+    function toggleFreeze() {
+      freezeOn = !freezeOn
+      freeze.classList.toggle("knobDeactivated")
+
+      if (freezeOn === true) {
+        data.nodes.forEach((node) => {
+          node.fx = node.x;
+          node.fy = node.y
+        })
+      } else {
+        data.nodes.forEach((node) => {
+          node.fx = null;
+          node.fy = null;
+        })
+      }
+    }
+
+
     // freeze nodes
     // Graph.onEngineStop(() => {
     //   data.nodes.forEach((node) => {
@@ -244,6 +350,21 @@ fetch("dags/UPcourse2.json")
     //     node.fy = node.y;
     //   });
     // });
+
+    // Search bar
+
+    const searchInput = document.getElementById("search");
+
+    searchInput.addEventListener("input", (e) => {
+      const value = e.target.value.toLowerCase();
+      cards.forEach((card) => {
+        card.desc = card.desc || "";
+        const isVisible =
+          card.title.toLowerCase().includes(value) ||
+          card.desc.toLowerCase().includes(value);
+        card.element.classList.toggle("hide", !isVisible);
+      });
+    });
 
     // onDivClick, center at node
 
@@ -254,6 +375,13 @@ fetch("dags/UPcourse2.json")
       Graph.centerAt(node.x, node.y, 1000);
       Graph.zoom(1.5, 1000);
     }
+
+    const barLi = document.querySelectorAll(".barli");
+    barLi.forEach((element) => {
+      element.addEventListener("mouseenter", function () {
+        graphHighlight(this.id);
+      });
+    });
 
     barLi.forEach((element) => {
       element.addEventListener("click", function () {
