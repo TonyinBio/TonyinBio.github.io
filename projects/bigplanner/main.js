@@ -4,7 +4,7 @@
 // TODO: Fix D3. Nodes repel away infinetly
 // TODO: Autocurve
 
-// TODO: Improve linkless 
+// TODO: Improve linkless
 // TODO: Clear search bar
 // TODO: Link legend
 
@@ -406,6 +406,20 @@ fetch("dags/UPcourse2.json")
         });
       }
     }
+
+    // DAG button
+
+    const dagButton = document.getElementById("dag");
+    isDag = false;
+    dagButton.addEventListener("click", () => {
+      isDag = !isDag;
+      dagButton.classList.toggle("knobDeactivated");
+      if (isDag === true) {
+        Graph.dagMode("lr");
+      } else {
+        Graph.dagMode(null);
+      }
+    });
 
     // Search bar
 
