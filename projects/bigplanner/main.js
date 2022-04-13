@@ -4,7 +4,9 @@
 // TODO: Fix D3. Nodes repel away infinetly
 // TODO: Autocurve
 
-// TODO: Remove linkless + Include duplicates + Clear search bar + Link legend
+// TODO: Improve linkless 
+// TODO: Clear search bar
+// TODO: Link legend
 
 // Created from https://github.com/vasturiano/force-graph
 const highlightNodes = new Set();
@@ -309,7 +311,7 @@ fetch("dags/UPcourse2.json")
       }
     }
 
-    // All connections
+    // Minimum
     const minimum = document.getElementById("minimum");
     let isMinimum = false;
     minimum.addEventListener("click", () => {
