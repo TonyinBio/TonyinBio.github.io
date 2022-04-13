@@ -4,6 +4,8 @@
 // TODO: Fix D3. Nodes repel away infinetly
 // TODO: Autocurve
 
+// TODO: Remove linkless + Include duplicates + Clear search bar + Link legend
+
 // Created from https://github.com/vasturiano/force-graph
 const highlightNodes = new Set();
 const highlightLinks = new Set();
@@ -232,18 +234,43 @@ fetch("dags/UPcourse2.json")
       }
     });
 
-
     // Hide subjects
     let visibleSubjects = data.subjects;
+    let filteredData = {
+      nodes: data.nodes,
+      links: data.links,
+    };
 
     subjCards.forEach((card) => {
       card.element.addEventListener("click", () => {
         toggleHide(card);
+
+        checkMinimum();
+        checkLinkless();
+        Graph.graphData(filteredData);
       });
     });
 
+    function resetGraph() {
+      filteredData = {
+        nodes: data.nodes.filter((node) => {
+          let nodeSubject = node.title.split(/ \d{3}/)[0];
+          return visibleSubjects.includes(nodeSubject);
+        }),
+
+        links: data.links.filter((link) => {
+          let sourceSubject = link.source.title.split(/ \d{3}/)[0];
+          let targetSubject = link.target.title.split(/ \d{3}/)[0];
+
+          return (
+            visibleSubjects.includes(sourceSubject) &&
+            visibleSubjects.includes(targetSubject)
+          );
+        }),
+      };
+    }
     function toggleHide(card) {
-      card.element.classList.toggle("deactivated")
+      card.element.classList.toggle("deactivated");
 
       card.hide = !card.hide;
 
@@ -252,25 +279,62 @@ fetch("dags/UPcourse2.json")
           return subject != card.subject;
         });
       } else {
-        visibleSubjects.push(card.subject)
+        visibleSubjects.push(card.subject);
       }
 
-      let filteredData = {
-        nodes: data.nodes.filter((node) => {
-          let nodeSubject = node.title.split(/ \d{3}/)[0];
-          return visibleSubjects.includes(nodeSubject);
-        }),
+      resetGraph();
+    }
 
-        links: data.links.filter(link => {
+    // Linkless
+    const linkless = document.getElementById("linkless");
+    let isLinkLess = false;
+    linkless.addEventListener("click", () => {
+      isLinkLess = !isLinkLess;
+      linkless.classList.toggle("knobDeactivated");
 
-          let sourceSubject = link.source.title.split(/ \d{3}/)[0];
-          let targetSubject = link.target.title.split(/ \d{3}/)[0];
-
-          return visibleSubjects.includes(sourceSubject) && visibleSubjects.includes(targetSubject)
-        }),
-      };
-
+      resetGraph();
+      checkLinkless();
+      checkMinimum();
       Graph.graphData(filteredData);
+    });
+
+    function checkLinkless() {
+      if (isLinkLess === true) {
+        filteredData = {
+          nodes: filteredData.nodes.filter((node) => {
+            return !data.noLinks.includes(node.title);
+          }),
+          links: filteredData.links,
+        };
+      }
+    }
+
+    // All connections
+    const minimum = document.getElementById("minimum");
+    let isMinimum = false;
+    minimum.addEventListener("click", () => {
+      isMinimum = !isMinimum;
+      minimum.classList.toggle("knobDeactivated");
+
+      resetGraph();
+      checkMinimum();
+      checkLinkless();
+      Graph.graphData(filteredData);
+    });
+
+    function checkMinimum() {
+      if (isMinimum === true) {
+        filteredData = {
+          nodes: filteredData.nodes,
+          links: filteredData.links.filter((link) => {
+            if (link.duplicate === true) {
+              return false;
+            } else {
+              return true;
+            }
+          }),
+        };
+      }
     }
 
     // Locate neighbours
@@ -294,61 +358,52 @@ fetch("dags/UPcourse2.json")
       b.links.push(link);
     });
 
-    Graph(document.getElementById("graph")).graphData(data);
+    Graph(document.getElementById("graph")).graphData(filteredData);
 
     // Gravity button
 
-    const gravity = document.getElementById("gravity")
-    gravity.addEventListener("click", toggleGravity)
+    const gravity = document.getElementById("gravity");
+    gravity.addEventListener("click", toggleGravity);
 
-    let gravityOn = false
+    let gravityOn = false;
     function toggleGravity() {
-      gravityOn = !gravityOn
-      gravity.classList.toggle("knobDeactivated")
+      gravityOn = !gravityOn;
+      gravity.classList.toggle("knobDeactivated");
 
       if (gravityOn === true) {
-        Graph.d3Force("charge", d3.forceManyBody().strength(1000))
-        Graph.d3ReheatSimulation()
+        Graph.d3Force("charge", d3.forceManyBody().strength(1000));
+        Graph.d3ReheatSimulation();
       } else {
         Graph.d3Force(
           "charge",
           d3.forceManyBody().strength(-100).distanceMin(10).distanceMax(3000)
-        )
-        Graph.d3ReheatSimulation()
+        );
+        Graph.d3ReheatSimulation();
       }
     }
 
     // Freeze button
 
-    const freeze = document.getElementById("freeze")
-    freeze.addEventListener("click", toggleFreeze)
-    
-    let freezeOn = false
+    const freeze = document.getElementById("freeze");
+    freeze.addEventListener("click", toggleFreeze);
+
+    let freezeOn = false;
     function toggleFreeze() {
-      freezeOn = !freezeOn
-      freeze.classList.toggle("knobDeactivated")
+      freezeOn = !freezeOn;
+      freeze.classList.toggle("knobDeactivated");
 
       if (freezeOn === true) {
         data.nodes.forEach((node) => {
           node.fx = node.x;
-          node.fy = node.y
-        })
+          node.fy = node.y;
+        });
       } else {
         data.nodes.forEach((node) => {
           node.fx = null;
           node.fy = null;
-        })
+        });
       }
     }
-
-
-    // freeze nodes
-    // Graph.onEngineStop(() => {
-    //   data.nodes.forEach((node) => {
-    //     node.fx = node.x;
-    //     node.fy = node.y;
-    //   });
-    // });
 
     // Search bar
 

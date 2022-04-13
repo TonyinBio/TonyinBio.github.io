@@ -107,11 +107,16 @@
 
 #controls {
   display: flex;
+  flex-wrap: wrap;
   background-color: #1b98e0;
   padding: 10px;
   text-align: center;
   transition: 500ms ease;
 }
+.knob {
+  width: 100%;
+}
+
 .knob:hover {
   background-color: #FE4A49;
   border-style: inset;
