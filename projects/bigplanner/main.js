@@ -409,16 +409,28 @@ fetch("dags/UPcourse2.json")
 
     // DAG button
 
+    function checkDag() {
+      if (isDag === true) {
+        Graph.dagMode("td");
+        Graph.d3Force(
+          "charge",
+          d3.forceManyBody().strength(-100).distanceMin(10).distanceMax(10000)
+        );
+      } else {
+        Graph.dagMode(null);
+        Graph.d3Force(
+          "charge",
+          d3.forceManyBody().strength(-100).distanceMin(10).distanceMax(3000)
+        );
+      }
+    }
+
     const dagButton = document.getElementById("dag");
     isDag = false;
     dagButton.addEventListener("click", () => {
       isDag = !isDag;
       dagButton.classList.toggle("knobDeactivated");
-      if (isDag === true) {
-        Graph.dagMode("lr");
-      } else {
-        Graph.dagMode(null);
-      }
+      checkDag();
     });
 
     // Search bar
