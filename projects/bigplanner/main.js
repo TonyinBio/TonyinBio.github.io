@@ -24,7 +24,7 @@ function scrollTo(id) {
 }
 
 const Graph = ForceGraph()
-  .width(innerWidth - document.getElementById("sidebar").offsetWidth)
+  .width(innerWidth - document.getElementById("sidebar").offsetWidth - document.getElementById("subjBar").offsetWidth)
   .backgroundColor("#101020")
   .nodeId("id")
   .nodeVal("val")
@@ -180,37 +180,24 @@ fetch("dags/UPcourse2.json")
       tagCollapsed = !tagCollapsed;
       if (tagCollapsed === true) {
         tag.innerHTML = "<<br><<br><";
-        Graph.width(innerWidth);
+
+        updatePosition();
+
+        Graph.width(graphWidth);
       } else {
         tag.innerHTML = "><br>><br>>";
+
+        updatePosition();
+
         setTimeout(() => {
-          Graph.width(
-            innerWidth - document.getElementById("sidebar").offsetWidth
-          );
+          Graph.width(graphWidth);
         }, 500);
       }
     });
 
-    // Add cards
-    let cards = data.nodes.map((node) => {
-      let div = document.createElement("div");
-      div.classList.add("barli");
-      div.id = node.title;
+    
 
-      let h1 = document.createElement("h1");
-      let p = document.createElement("p");
-
-      h1.append(node.title);
-      p.append(node.desc);
-
-      div.append(h1, p);
-
-      bar.append(div);
-
-      return { title: node.title, desc: node.desc, element: div };
-    });
-
-    const subjBar = document.getElementById("subjBar");
+    const subjCardsContainer = document.getElementById("subjCardsContainer");
     // Add subjects
     let subjCards = data.subjects.map((subject) => {
       let h2 = document.createElement("h2");
@@ -218,23 +205,51 @@ fetch("dags/UPcourse2.json")
       h2.id = subject;
       h2.append(subject);
 
-      subjBar.append(h2);
+      subjCardsContainer.append(h2);
       return { subject: subject, element: h2, hide: false };
     });
 
     // Collapse interactivity
     subjTagCollapsed = false;
     const subjTag = document.getElementById("subjTag");
+    const subjBar = document.getElementById("subjBar")
+    // subjTag.style.left = `${subjBar.offsetWidth - 10}px`;
+
+
     subjTag.addEventListener("click", () => {
       subjBar.classList.toggle("left");
       subjTag.classList.toggle("tagCollapse");
       subjTagCollapsed = !subjTagCollapsed;
+      
+
       if (subjTagCollapsed === true) {
         subjTag.innerHTML = "><br>><br>>";
+        updatePosition()
+        Graph.width(graphWidth);
+        graphDiv.style.left = "0px";
       } else {
         subjTag.innerHTML = "<<br><<br><";
+        updatePosition()
+        
+        setTimeout(() => {
+          graphDiv.style.left = `${subjBar.offsetWidth}px`;
+          Graph.width(graphWidth);
+        }, 500);
       }
     });
+
+
+    let graphWidth;
+    function updatePosition() {
+      if (subjTagCollapsed === false) {
+          graphWidth = innerWidth - subjBar.offsetWidth;
+      } else {
+        graphWidth = innerWidth
+      };
+      if (tagCollapsed === false) {
+        graphWidth -= bar.offsetWidth
+      };
+    }
 
     // Hide subjects
     let visibleSubjects = data.subjects;
@@ -250,8 +265,11 @@ fetch("dags/UPcourse2.json")
         checkMinimum();
         checkLinkless();
         Graph.graphData(filteredData);
+
+        resetCards();    
       });
     });
+    
 
     function resetGraph() {
       filteredData = {
@@ -286,6 +304,65 @@ fetch("dags/UPcourse2.json")
 
       resetGraph();
     }
+    
+    // Add cards
+    let cards;
+    function resetCards() {
+      const barLi = bar.querySelectorAll(".barli");
+      barLi.forEach((li) => {
+        li.remove()
+      });
+
+      cards = filteredData.nodes.map((node) => {
+        let div = document.createElement("div");
+        div.classList.add("barli");
+        div.id = node.title;
+
+        let h1 = document.createElement("h1");
+        let p = document.createElement("p");
+
+        h1.append(node.title);
+        p.append(node.desc);
+
+        div.append(h1, p);
+
+        bar.append(div);
+
+        return { title: node.title, desc: node.desc, element: div };
+      });
+    }
+    resetCards();
+
+    // Show all or No Cards
+    const showAll = document.getElementById("showAll");
+    const showNone = document.getElementById("showNone");
+
+    showAll.addEventListener("click", () => {
+      subjCards.forEach((card) => {
+        card.element.classList.add("deactivated");
+        card.hide = true;
+        toggleHide(card);
+
+      })
+      checkMinimum();
+      checkLinkless();
+      Graph.graphData(filteredData);
+
+      resetCards();
+    })
+    showNone.addEventListener("click", () => {
+      subjCards.forEach((card) => {
+        card.element.classList.remove("deactivated");
+        card.hide = false;
+        toggleHide(card);
+
+      })
+      checkMinimum();
+      checkLinkless();
+      Graph.graphData(filteredData);
+
+      resetCards();
+    })
 
     // Linkless
     const linkless = document.getElementById("linkless");
@@ -360,7 +437,12 @@ fetch("dags/UPcourse2.json")
       b.links.push(link);
     });
 
-    Graph(document.getElementById("graph")).graphData(filteredData);
+    graphDiv = document.getElementById("graph");
+    graphDiv.style.position = "absolute";
+    graphDiv.style.left = `${subjBar.offsetWidth}px`;
+    Graph(graphDiv).graphData(filteredData);
+    
+
 
     // Gravity button
 
@@ -373,13 +455,22 @@ fetch("dags/UPcourse2.json")
       gravity.classList.toggle("knobDeactivated");
 
       if (gravityOn === true) {
-        Graph.d3Force("charge", d3.forceManyBody().strength(1000));
+        // Graph.d3Force("charge", d3.forceManyBody().strength(35));
+        // Graph.d3AlphaDecay(0.01)
+        Graph.d3Force("forceX", d3.forceX()
+          .strength(0.05))
+        Graph.d3Force("forceY", d3.forceY()
+          .strength(0.05))
         Graph.d3ReheatSimulation();
       } else {
-        Graph.d3Force(
-          "charge",
-          d3.forceManyBody().strength(-100).distanceMin(10).distanceMax(3000)
-        );
+        // Graph.d3Force(
+        //   "charge",
+        //   d3.forceManyBody().strength(-100).distanceMin(10).distanceMax(3000)
+        // );
+        Graph.d3Force("forceX", d3.forceX()
+          .strength(0))
+        Graph.d3Force("forceY", d3.forceY()
+          .strength(0))
         Graph.d3ReheatSimulation();
       }
     }

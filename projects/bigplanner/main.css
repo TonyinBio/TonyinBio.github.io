@@ -60,7 +60,7 @@
 
 #subjBar {
   height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 200px;
+  width: 420px;
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
@@ -75,16 +75,30 @@
 }
 
 #subjBar.left {
-  left: -200px;
+  left: -420px;
+}
+
+#subjBar h3{
+  padding: 15px 0px 0px 10px;
+  margin: 0px;
+}
+
+
+#subjCardsContainer {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 10px;
+  padding: 10px;
 }
 
 .subjBarLi {
-  background-color: #00000000;
+  background-color: #FE4A49;
   transition: 500ms ease;
   padding-left: 40px;
   padding-right: 40px;
   padding-top: 2px;
   cursor: pointer;
+  border-radius: 5px;
 
   margin: 0px;
   padding: 1rem;
@@ -101,7 +115,7 @@
 
   width: 10px;
   top: 50%;
-  left: 190px;
+  left: 410px;
   background-color: white;
 }
 
@@ -109,30 +123,38 @@
   left: -10px;
 }
 
-#controls {
+.flexBoard {
   display: flex;
   flex-wrap: wrap;
-  background-color: #1b98e0;
+  gap: 5px;
+  justify-content: space-evenly;
+
+
   padding: 10px;
   text-align: center;
   transition: 500ms ease;
 }
+
 .knob {
-  width: 100%;
+  /* width: 30%; */
+  background-color: #1b98e0;
   cursor: pointer;
+  border-radius: 3px;
+  padding: 2px 10px 2px 10px;
 }
 
 .knob:hover {
   background-color: #FE4A49;
-  border-style: inset;
-  transform: translateY(0px) scale(1.02);
+  transform: translateY(0px) scale(0.95);
 }
 
 .knobDeactivated {
   background-color: #FE4A49;
-  border-style: inset;
-  transform: translateY(0px) scale(1.02);
+  transform: translateY(0px) scale(0.95);
 }
+
+
+
 
 
 .hide {
@@ -141,8 +163,8 @@
 
 .deactivated {
   background-color: #1b98e0;
-  border-style: inset;
-  transform: translateY(0px) scale(1.02);
+  /* border-style: inset; */
+  transform: translateY(0px) scale(0.95);
 }
 
 .search-wrapper {
@@ -177,8 +199,7 @@
 
 .subjBarLi:hover {
   background-color: #1b98e0;
-  border-style: inset;
-  transform: translateY(0px) scale(1.02);
+  transform: translateY(0px) scale(0.95);
 }
 
 .highlight {
@@ -197,6 +218,8 @@
   margin-bottom: 0px;
   padding-bottom: 10px;
 }
+
+
 
 
 * {
