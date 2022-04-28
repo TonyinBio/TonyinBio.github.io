@@ -145,12 +145,12 @@
 
 .knob:hover {
   background-color: #FE4A49;
-  transform: translateY(0px) scale(0.95);
+  transform: translateY(0px) scale(1.05);
 }
 
 .knobDeactivated {
   background-color: #FE4A49;
-  transform: translateY(0px) scale(0.95);
+  transform: translateY(0px) scale(1.05);
 }
 
 
