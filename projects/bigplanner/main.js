@@ -143,7 +143,9 @@ const Graph = ForceGraph()
     "charge",
     d3.forceManyBody().strength(-100).distanceMin(10).distanceMax(3000)
   )
-  .d3Force("link", d3.forceLink().iterations(1))
+  .d3Force("link", d3.forceLink().iterations(1)
+  // .distance(100)
+  )
   .d3Force("collide", d3.forceCollide(30));
 // .d3AlphaDecay(0.01)
 // .d3VelocityDecay(0.3);
@@ -486,14 +488,15 @@ fetch("dags/UPcourse2.json")
       freeze.classList.toggle("knobDeactivated");
 
       if (freezeOn === true) {
-        data.nodes.forEach((node) => {
+        filteredData.nodes.forEach((node) => {
           node.fx = node.x;
           node.fy = node.y;
         });
       } else {
-        data.nodes.forEach((node) => {
+        filteredData.nodes.forEach((node) => {
           node.fx = null;
           node.fy = null;
+          checkDag()
         });
       }
     }
@@ -507,12 +510,20 @@ fetch("dags/UPcourse2.json")
           "charge",
           d3.forceManyBody().strength(-100).distanceMin(10).distanceMax(10000)
         );
+        Graph.d3Force(
+          "collide",
+          d3.forceCollide(40)
+        );
       } else {
         Graph.dagMode(null);
         Graph.d3Force(
           "charge",
           d3.forceManyBody().strength(-100).distanceMin(10).distanceMax(3000)
         );
+        Graph.d3Force(
+          "collide",
+          d3.forceCollide(30)
+        )
       }
     }
 
