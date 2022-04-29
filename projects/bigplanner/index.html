@@ -30,34 +30,48 @@
   <body>
     <div id="graph"></div>
 
-    <div id="subjTag">
+    <div id="leftTag" class="tag">
       <<br />
       <<br />
       <
     </div>
-    <div id="subjBar">
-      <h3>Graph Controls</h2>
-      <div id="controls" class="flexBoard">
-        <div id="gravity" class="knob">Gravity</div>
-        <div id="freeze" class="knob">Freeze</div>
-        <div id="linkless" class="knob">Hide Single Nodes</div>
-        <div id="minimum" class="knob">Hide Alternative Requirement Links</div>
-        <div id="dag" class="knob">Tree</div>
+
+    <div id="leftBar">
+      <div class="tab">
+        <div class="tabLink" data-link-to="controlBar">Controls</div>
+        <div class="tabLink" data-link-to="descBar">More Info</div>
       </div>
-      <h3>Hide or Show Subjects</h3>
-      <div id="selectAll" class="flexBoard">
-        <div id="showAll" class="knob">All</div>
-        <div id="showNone" class="knob">None</div>
+
+      <div id="controlBar" class="tabContent">
+        <h3>Graph Controls</h3>
+        <div id="controls" class="flexBoard">
+          <div id="gravity" class="knob">Gravity</div>
+          <div id="freeze" class="knob">Freeze</div>
+          <div id="linkless" class="knob">Hide Single Nodes</div>
+          <div id="minimum" class="knob">
+            Hide Alternative Requirement Links
+          </div>
+          <div id="dag" class="knob">Tree</div>
+        </div>
+        <h3>Hide or Show Subjects</h3>
+        <div id="selectAll" class="flexBoard">
+          <div id="showAll" class="knob">All</div>
+          <div id="showNone" class="knob">None</div>
+        </div>
+        <div id="subjCardsContainer"></div>
       </div>
-      <div id="subjCardsContainer"></div>
+
+      <div id="descBar" class="tabContent">
+        <h3>Click on a course from the right sidebar to display more information!</h3>
+      </div>
     </div>
 
-    <div id="tag">
+    <div id="rightTag" class="tag">
       ><br />
       ><br />
       >
     </div>
-    <div id="sidebar">
+    <div id="rightBar">
       <div class="search-wrapper">
         <label for="search">Search Courses</label>
         <input type="search" id="search" />

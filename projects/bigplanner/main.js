@@ -1,19 +1,18 @@
-// TODO: Touch up css
 // TODO: Change link colours?
 // TODO: Add borders?
-// TODO: Fix D3. Nodes repel away infinetly
-// TODO: Autocurve
 
 // TODO: Improve linkless
 // TODO: Clear search bar
 // TODO: Link legend
+
+// TODO: Get review information for courses
 
 // Created from https://github.com/vasturiano/force-graph
 const highlightNodes = new Set();
 const highlightLinks = new Set();
 let hoverNode = null;
 
-// function to scroll sidebar into view
+// function to scroll rightBar into view
 function scrollTo(id) {
   let element = document.getElementById(id);
   element.scrollIntoView({ behavior: "smooth" });
@@ -21,10 +20,32 @@ function scrollTo(id) {
   setTimeout(function () {
     element.classList.remove("highlight");
   }, 1000);
+};
+
+// Tabs
+tabLinks = document.querySelectorAll(".tabLink");
+tabContentList = document.querySelectorAll(".tabContent");
+
+tabLinks.forEach((tabLink) => {
+  tabLink.addEventListener("click", goToTab)
+});
+
+function goToTab(e) {
+  tabLinks.forEach(tab => tab.classList.remove("activated"))
+  
+  tabContentList.forEach((tabContent) => {
+    tabContent.style.display = "none";
+    if (tabContent.id === e.target.dataset.linkTo) {
+      tabContent.style.display = "block";
+    };
+  });
+  e.target.classList.add("activated");
 }
 
+tabLinks[0].click();
+
 const Graph = ForceGraph()
-  .width(innerWidth - document.getElementById("sidebar").offsetWidth - document.getElementById("subjBar").offsetWidth)
+  .width(innerWidth - document.getElementById("rightBar").offsetWidth - document.getElementById("leftBar").offsetWidth)
   .backgroundColor("#101020")
   .nodeId("id")
   .nodeVal("val")
@@ -166,8 +187,8 @@ fetch("dags/UPcourse2.json")
     });
 
     // Highlight interactivity
-    const bar = document.getElementById("sidebar");
-    bar.addEventListener("mouseleave", function () {
+    const rightBar = document.getElementById("rightBar");
+    rightBar.addEventListener("mouseleave", function () {
       highlightNodes.clear();
       highlightLinks.clear();
       hoverNode = null;
@@ -175,19 +196,19 @@ fetch("dags/UPcourse2.json")
 
     // Course collapse interactivity
     tagCollapsed = false;
-    const tag = document.getElementById("tag");
-    tag.addEventListener("click", () => {
-      bar.classList.toggle("right");
-      tag.classList.toggle("tagCollapse");
+    const rightTag = document.getElementById("rightTag");
+    rightTag.addEventListener("click", () => {
+      rightBar.classList.toggle("right");
+      rightTag.classList.toggle("tagCollapse");
       tagCollapsed = !tagCollapsed;
       if (tagCollapsed === true) {
-        tag.innerHTML = "<<br><<br><";
+        rightTag.innerHTML = "<<br><<br><";
 
         updatePosition();
 
         Graph.width(graphWidth);
       } else {
-        tag.innerHTML = "><br>><br>>";
+        rightTag.innerHTML = "><br>><br>>";
 
         updatePosition();
 
@@ -213,28 +234,28 @@ fetch("dags/UPcourse2.json")
 
     // Collapse interactivity
     subjTagCollapsed = false;
-    const subjTag = document.getElementById("subjTag");
-    const subjBar = document.getElementById("subjBar")
-    // subjTag.style.left = `${subjBar.offsetWidth - 10}px`;
+    const leftTag = document.getElementById("leftTag");
+    const leftBar = document.getElementById("leftBar")
+    // leftTag.style.left = `${leftBar.offsetWidth - 10}px`;
 
 
-    subjTag.addEventListener("click", () => {
-      subjBar.classList.toggle("left");
-      subjTag.classList.toggle("tagCollapse");
+    leftTag.addEventListener("click", () => {
+      leftBar.classList.toggle("left");
+      leftTag.classList.toggle("tagCollapse");
       subjTagCollapsed = !subjTagCollapsed;
       
 
       if (subjTagCollapsed === true) {
-        subjTag.innerHTML = "><br>><br>>";
+        leftTag.innerHTML = "><br>><br>>";
         updatePosition()
         Graph.width(graphWidth);
         graphDiv.style.left = "0px";
       } else {
-        subjTag.innerHTML = "<<br><<br><";
+        leftTag.innerHTML = "<<br><<br><";
         updatePosition()
         
         setTimeout(() => {
-          graphDiv.style.left = `${subjBar.offsetWidth}px`;
+          graphDiv.style.left = `${leftBar.offsetWidth}px`;
           Graph.width(graphWidth);
         }, 500);
       }
@@ -244,12 +265,12 @@ fetch("dags/UPcourse2.json")
     let graphWidth;
     function updatePosition() {
       if (subjTagCollapsed === false) {
-          graphWidth = innerWidth - subjBar.offsetWidth;
+          graphWidth = innerWidth - leftBar.offsetWidth;
       } else {
         graphWidth = innerWidth
       };
       if (tagCollapsed === false) {
-        graphWidth -= bar.offsetWidth
+        graphWidth -= rightBar.offsetWidth
       };
     }
 
@@ -306,14 +327,13 @@ fetch("dags/UPcourse2.json")
 
       resetGraph();
     }
-    
+    const barLi = rightBar.getElementsByClassName("barli");
     // Add cards
     let cards;
     function resetCards() {
-      const barLi = bar.querySelectorAll(".barli");
-      barLi.forEach((li) => {
-        li.remove()
-      });
+      while (barLi.length > 0) {
+        barLi[0].remove()
+      }
 
       cards = filteredData.nodes.map((node) => {
         let div = document.createElement("div");
@@ -328,7 +348,10 @@ fetch("dags/UPcourse2.json")
 
         div.append(h1, p);
 
-        bar.append(div);
+        div.addEventListener("mouseenter", graphHighlight);
+        div.addEventListener("click", graphFocus)
+
+        rightBar.append(div);
 
         return { title: node.title, desc: node.desc, element: div };
       });
@@ -441,7 +464,7 @@ fetch("dags/UPcourse2.json")
 
     graphDiv = document.getElementById("graph");
     graphDiv.style.position = "absolute";
-    graphDiv.style.left = `${subjBar.offsetWidth}px`;
+    graphDiv.style.left = `${leftBar.offsetWidth}px`;
     Graph(graphDiv).graphData(filteredData);
     
 
@@ -552,31 +575,19 @@ fetch("dags/UPcourse2.json")
 
     // onDivClick, center at node
 
-    function graphFocus(nodetitle) {
+    function graphFocus(e) {
       let node = data.nodes.find((node) => {
-        return node.title === nodetitle;
+        return node.title === e.currentTarget.id;
       });
+
       Graph.centerAt(node.x, node.y, 1000);
       Graph.zoom(1.5, 1000);
     }
 
-    const barLi = document.querySelectorAll(".barli");
-    barLi.forEach((element) => {
-      element.addEventListener("mouseenter", function () {
-        graphHighlight(this.id);
-      });
-    });
-
-    barLi.forEach((element) => {
-      element.addEventListener("click", function () {
-        graphFocus(this.id);
-      });
-    });
-
     // onDivhover, highlight node
-    function graphHighlight(nodetitle) {
+    function graphHighlight(e) {
       let node = data.nodes.find((node) => {
-        return node.title === nodetitle;
+        return node.title === e.currentTarget.id;
       });
       highlightNodes.clear();
       highlightLinks.clear();

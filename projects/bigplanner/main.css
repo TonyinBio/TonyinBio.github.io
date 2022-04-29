@@ -2,7 +2,7 @@
   overflow: hidden;
 }
 
-#sidebar {
+#rightBar {
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 540px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
@@ -18,7 +18,7 @@
   font-family: "arial";
 }
 
-#sidebar.right {
+#rightBar.right {
   right: -540px;
 }
 
@@ -27,22 +27,36 @@
   padding-top: 10px;
 }
 
-#tag {
+
+
+.tag {
   margin: none;
   position: fixed;
   padding: 10px;
   border-radius: 5px;
-  padding-right: 20px;
   transition: 500ms ease-in-out;
   cursor: pointer;
 
   width: 10px;
   top: 50%;
-  right: 530px;
   background-color: white;
 }
 
-#tag.tagCollapse {
+#leftTag {
+  padding-left: 20px;
+  left: 410px; 
+}
+
+#leftTag.tagCollapse {
+  left: -10px;
+}
+
+#rightTag {
+  padding-right: 20px;
+  right: 530px;
+}
+
+#rightTag.tagCollapse {
   right: -10px;
 }
 
@@ -55,10 +69,7 @@
   cursor: pointer;
 }
 
-
-
-
-#subjBar {
+#leftBar {
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 420px;
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
@@ -74,13 +85,45 @@
   font-family: "arial";
 }
 
-#subjBar.left {
+#leftBar.left {
   left: -420px;
 }
 
-#subjBar h3{
+#leftBar h3{
   padding: 15px 0px 0px 10px;
   margin: 0px;
+}
+
+.tab {
+  display: flex;
+  overflow: hidden;
+  background-color: #1b98e0;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  top: 0;
+  position: sticky;
+}
+
+.tabLink {
+  display: inline;
+  cursor: pointer;
+  transition: 200ms ease-in-out;
+  padding: 10px;
+  /* border-top-right-radius: 10px;
+  border-top-left-radius: 10px; */
+}
+
+.tabLink:hover {
+  background-color: #f6ae2d;
+}
+
+.tabLink.activated {
+  background-color: #f6ae2d;
+}
+
+.tabContent {
+  display: none;
 }
 
 
@@ -104,31 +147,13 @@
   padding: 1rem;
 }
 
-#subjTag {
-  margin: none;
-  position: fixed;
-  padding: 10px;
-  border-radius: 5px;
-  padding-left: 20px;
-  transition: 500ms ease-in-out;
-  cursor: pointer;
 
-  width: 10px;
-  top: 50%;
-  left: 410px;
-  background-color: white;
-}
-
-#subjTag.tagCollapse {
-  left: -10px;
-}
 
 .flexBoard {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
   justify-content: space-evenly;
-
 
   padding: 10px;
   text-align: center;
@@ -235,10 +260,10 @@
   border-radius: 100vw;
 }
 
-#sidebar::-webkit-scrollbar-track {
+#rightBar::-webkit-scrollbar-track {
   background-color:	hsl(202, 78%, 30%);
 }
 
-#subjBar::-webkit-scrollbar-track {
+#leftBar::-webkit-scrollbar-track {
   background-color:		hsl(39, 92%, 30%);
 }
