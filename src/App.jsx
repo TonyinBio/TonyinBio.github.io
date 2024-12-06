@@ -18,7 +18,7 @@ function App() {
           path="/course-graph"
           element={
             <iframe
-              src="/courseGraph.html"
+              src="courseGraph.html"
               title="Course Graph"
               style={{
                 width: "100%",
