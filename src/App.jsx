@@ -37,8 +37,8 @@ function App() {
 
 function Home() {
   return (
-    <div className="mx-60">
-      <div className="grid grid-cols-[1fr,1fr] h-screen text-white">
+    <div className="flex justify-center min-w-screen">
+      <div className="grid grid-cols-[1fr,1fr] h-screen text-white max-w-5xl">
         {/* <CourseGraph /> */}
         <Picture />
         <About />
