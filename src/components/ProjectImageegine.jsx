@@ -9,7 +9,7 @@ export default function ProjectImageegine() {
           <li>
             <strong>
               An ML model for predicting what someone is looking at based off
-              your brain waves!
+              their brain waves!
             </strong>
           </li>
           <li>3rd place at the 2023 natHacks hackathon.</li>
