@@ -5,7 +5,7 @@ import ProjectChatbot from "./components/ProjectChatbot";
 import ProjectProsthetic from "./components/ProjectProsthetic";
 import ProjectCourseGraph from "./components/ProjectCourseGraph";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 
 import "./App.css";
 
