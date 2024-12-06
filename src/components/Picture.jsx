@@ -6,7 +6,7 @@ export default function Picture() {
   return (
     <>
       <div className="flex justify-center items-center bg-black text-white">
-        <img src="src/assets/headshot.jpg" alt="Tony Sun" className="px-10 pb-5 pt-10" />
+        <img src="headshot.jpg" alt="Tony Sun" className="px-10 pb-5 pt-10" />
       </div>
       <div className="flex flex-col items-start justify-center bg-white text-black px-5">
         <h1 className="text-3xl font-bold">Tony Sun</h1>
