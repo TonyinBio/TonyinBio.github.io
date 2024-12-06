@@ -3,11 +3,15 @@ import React from "react";
 export default function ProjectCourseGraph() {
   return (
     <>
-      <div className="flex flex-col justify-left items-start bg-black text-white px-10 py-5">
+      <div className="flex flex-col justify-left items-start bg-black text-white px-10 pt-5">
         <div className="w-full border-t-2 border-white mb-4"></div>
 
         <ul className="marker:text-white list-disc text-left pl-4">
-          <li>A web app for visualizing course relationships at the UofA!</li>
+          <li>
+            <strong>
+              A web app for visualizing course relationships at the UofA!
+            </strong>
+          </li>
           <li>
             Great for answering the question: "what can I do with x course?"
           </li>
@@ -26,6 +30,7 @@ export default function ProjectCourseGraph() {
       <div className="flex items-start bg-white text-black pt-10 px-5">
         <a
           href="/#/course-graph"
+          target="_blank"
           rel="noopener noreferrer"
           className="group relative"
         >

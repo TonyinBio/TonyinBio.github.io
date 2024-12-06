@@ -4,6 +4,8 @@ import Picture from "./components/Picture";
 import ProjectChatbot from "./components/ProjectChatbot";
 import ProjectProsthetic from "./components/ProjectProsthetic";
 import ProjectCourseGraph from "./components/ProjectCourseGraph";
+import ProjectImageegine from "./components/ProjectImageegine";
+import ProjectNeuroNavScore from "./components/ProjectNeuroNavScore";
 
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -40,9 +42,11 @@ function Home() {
         {/* <CourseGraph /> */}
         <Picture />
         <About />
+        <ProjectProsthetic />
+        <ProjectNeuroNavScore />
         <ProjectChatbot />
         <ProjectCourseGraph />
-        {/* <ProjectProsthetic /> */}
+        <ProjectImageegine />
       </div>
     </div>
   );

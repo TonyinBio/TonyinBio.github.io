@@ -1,34 +1,29 @@
 import React from "react";
-
-export default function ProjectChatbot() {
+export default function ProjectImageegine() {
   return (
     <>
-      <div className="flex flex-col justify-left items-start bg-black text-white px-10 pt-5">
+      <div className="flex flex-col justify-left items-start bg-black text-white px-10 py-5">
         <div className="w-full border-t-2 border-white mb-4"></div>
 
         <ul className="marker:text-white list-disc text-left pl-4">
           <li>
             <strong>
-              A web app for a custom chatbot specialized in the biomedical
-              field!
+              An ML model for predicting what someone is looking at based off
+              your brain waves!
             </strong>
           </li>
-          <li>
-            Uses retrieval augmented generation based on a knowledge graph.
-          </li>
-          <li>Data extracted from PubMed papers.</li>
-          <li>Made with: Chainlit, Neo4j, Ollama, Docker.</li>
+          <li>3rd place at the 2023 natHacks hackathon.</li>
         </ul>
       </div>
       <div className="flex items-start bg-white text-black pt-10 px-5">
         <a
-          href="https://github.com/TonyinBio/bio-chat"
+          href="https://devpost.com/software/the-see-it"
           target="_blank"
           rel="noopener noreferrer"
           className="group relative"
         >
           <h1 className="text-3xl font-bold relative z-10">
-            Biomedical Chatbot
+            EEG Vision Predictor
           </h1>
           {/* https://birdeatsbug.com/blog/creating-hover-effects-with-tailwind-css */}
           <span className="absolute -bottom-1 left-0 w-7 h-2 bg-blue-400 transition-all group-hover:w-full"></span>
