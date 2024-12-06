@@ -27,7 +27,7 @@ export default function ProjectNeuroNavScore() {
           className="group relative"
         >
           <h1 className="text-3xl font-bold relative z-10">
-            Alzheimer's Screening
+            Alzheimer's Screener
           </h1>
           {/* https://birdeatsbug.com/blog/creating-hover-effects-with-tailwind-css */}
           <span className="absolute -bottom-1 left-0 w-7 h-2 bg-blue-400 transition-all group-hover:w-full"></span>
