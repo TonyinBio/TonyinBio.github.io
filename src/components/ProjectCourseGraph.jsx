@@ -25,7 +25,7 @@ export default function ProjectCourseGraph() {
       </div>
       <div className="flex items-start bg-white text-black pt-10 px-5">
         <a
-          href="/course-graph"
+          href="#/course-graph"
           rel="noopener noreferrer"
           className="group relative"
         >
