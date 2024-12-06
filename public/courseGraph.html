@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+    <script src="https://unpkg.com/d3-quadtree"></script>
+    <script src="https://unpkg.com/d3-force"></script>
+    <script src="https://unpkg.com/force-graph"></script>
+    <link rel="stylesheet" href="courseGraph.css" />
+    <title>Course Info</title>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-TEWQWZJC8X"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-TEWQWZJC8X");
+    </script>
+  </head>
+  <body>
+    <div id="graph"></div>
+
+    <div id="leftTag" class="tag">
+      <<br />
+      <<br />
+      <
+    </div>
+
+    <div id="leftBar">
+      <div class="tab">
+        <div class="tabLink" data-link-to="controlBar">Controls</div>
+        <div class="tabLink" data-link-to="descBar">More Info</div>
+      </div>
+
+      <div id="controlBar" class="tabContent">
+        <h3>Graph Controls</h3>
+        <div id="controls" class="flexBoard">
+          <div id="gravity" class="knob">Gravity</div>
+          <div id="freeze" class="knob">Freeze</div>
+          <div id="linkless" class="knob">Hide Single Nodes</div>
+          <div id="minimum" class="knob">
+            Hide Alternative Requirement Links
+          </div>
+          <div id="dag" class="knob">Tree</div>
+        </div>
+        <h3>Hide or Show Subjects</h3>
+        <div id="selectAll" class="flexBoard">
+          <div id="showAll" class="knob">All</div>
+          <div id="showNone" class="knob">None</div>
+        </div>
+        <div id="subjCardsContainer"></div>
+      </div>
+
+      <div id="descBar" class="tabContent">
+        <h3>Click on a course from the right sidebar to display more information!</h3>
+      </div>
+    </div>
+
+    <div id="rightTag" class="tag">
+      ><br />
+      ><br />
+      >
+    </div>
+    <div id="rightBar">
+      <div class="search-wrapper">
+        <label for="search">Search Courses</label>
+        <input type="search" id="search" />
+      </div>
+      <div id="citation">
+        Descriptions taken from
+        <a
+          href="https://sites.google.com/a/ualberta.ca/iminsa/program-information?authuser=0"
+          target="_blank"
+          >IMINSA's Website</a
+        >
+        and the
+        <a href="https://apps.ualberta.ca/catalogue" target="_blank"
+          >course catalogue</a
+        >
+      </div>
+    </div>
+
+    <script src="courseGraph.js"></script>
+  </body>
+</html>
