@@ -1,74 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="main.css" />
-    <title>Tony Tony Tony</title>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-TEWQWZJC8X"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-TEWQWZJC8X");
-    </script>
+    <title>Tony Sun</title>
   </head>
-
   <body>
-    <div id="menu">
-      <a class="active" href="/"> Home </a>
-
-      <a href="/projects/"> Projects </a>
-
-      <a href="/about/"> About </a>
-    </div>
-
-    <div class="background">
-      <img />
-      <h1 id="welcome">Welcome, You.</h1>
-      <div class="panel-left">
-        <h1>Projects</h1>
-        <div id="project-menu">
-          <button onclick="accordion('courseplanner')" class="accordion">
-            Course Planner
-          </button>
-          <div id="courseplanner" class="hide">
-            <div class="project-item">
-              Course Graph<a href="projects/courseplanner/">
-                <span class="link"></span>
-              </a>
-            </div>  
-            <div class="project-item">
-              Big-ish Data Course Graph<a href="projects/bigplanner/">
-                <span class="link"></span>
-              </a>
-            </div>
-            <div class="project-item">
-              Build a Graph<a href="projects/buildgraph/">
-                <span class="link"></span>
-              </a>
-            </div>
-            <div class="project-item">
-              Web Scraper<a target="_blank" href="https://github.com/TonyinBio/Course-Webscraper">
-                <span class="link"></span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel-right">
-        <h1>About</h1>
-        <p>Hello my name is Tony. I am learning to code.</p>
-      </div>
-    </div>
-    <script src="main.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
